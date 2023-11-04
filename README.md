@@ -22,9 +22,9 @@ pip install -r requirements.txt
 - Once the game has started, you can select your desired resolution in the `Dropdown` list.
 ### Step 4
 - Hit the `✔️` button to confirm your resolution and apply stretch, a message should appear saying : *VALORANT in now stretched!*. You can get two different error messages : *VALORANT ins't started!* or *Please select your resolution.*
-### Other Steps
+### Optional Steps
 - If you click on the `🖥️` button, it will set your resolution to default (your computer's highest resolution, which should be the default one).
 - If you click on the `🗑️` button, it will clear the selection the dropdown list.
-- Finally, you can close the application by clicking on the `Close` button
+- Finally, you can close the application by clicking on the `Close` button.
 
 ## Enjoy!
