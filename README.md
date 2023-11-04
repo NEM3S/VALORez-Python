@@ -10,7 +10,10 @@ You can stretch VALORANT in any resolution (existing or customised).
 ## Setup
 ### Before you start
 * You must have **Python** v3.9+ installed
-* You must install **requirements** by opening a command prompt in the **source** directory and running this command line : ```pip install -r requirements.txt```
+* You must install **requirements** by opening a command prompt in the **source** directory and running this command line :<br>
+```
+pip install -r requirements.txt
+```
 ### Step 1
 - Run the **gui.py** file in the **source** directory and an application should be appear.
 ### Step 2
