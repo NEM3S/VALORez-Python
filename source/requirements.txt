@@ -1,6 +1,5 @@
 flet==0.11.0
 flet_core==0.11.0
-psutil==5.9.2
 psutil==5.9.6
 pywin32==306
 WMI==1.5.1
