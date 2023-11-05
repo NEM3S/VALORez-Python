@@ -105,7 +105,7 @@ def main(page: ft.Page):
         "VALORez",
         color="red700",
         size=46,
-        font_family='Kanit',
+        font_family='VALORANT',
         text_align=ft.TextAlign.CENTER,
         width=page.window_width,
     )
