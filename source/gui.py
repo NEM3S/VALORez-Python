@@ -19,8 +19,7 @@ def main(page: ft.Page):
     )
 
     page.fonts = {
-        "VALORANT": r".\assets\Valorant Font.ttf",
-        "Kanit": "https://raw.githubusercontent.com/google/fonts/master/ofl/kanit/Kanit-Bold.ttf",
+        "VALORANT": r".\ValorantFont.ttf",
     }
 
     page.window_width = 400
