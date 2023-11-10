@@ -251,8 +251,6 @@ def main(page: ft.Page):
 
     page.add(c, processbar)
 
-    mn.set_saved_config(dd)
-    dd.value = 0
     confirm.disabled = True
     close.disabled = True
     default.disabled = True
@@ -273,6 +271,8 @@ def main(page: ft.Page):
         page.update()
     animate_opacityp()
     animate_opacityc()
+    mn.set_saved_config(dd)
+    page.update()
 
 
 if __name__ == '__main__':
