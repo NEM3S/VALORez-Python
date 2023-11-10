@@ -271,7 +271,7 @@ def set_saved_config(widget) -> None:
     config.read(r"./assets/config/settings.ini")
     resw = config['SAVED']['ResolutionW']
     resh = config['SAVED']['ResolutionH']
-    if resw == 0 and resh == 0:
+    if resw == '0' and resh == '0':
         return None
     else:
         widget.value = f"{resw} x {resh}"
