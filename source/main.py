@@ -268,9 +268,9 @@ def parse():
 def set_saved_config(widget) -> None:
     """Set saved resolution values from settings.ini"""
     config = configparser.ConfigParser()
-    config.read(r"./assets/config/settings.ini")
-    resw = config['SAVED']['ResolutionW']
-    resh = config['SAVED']['ResolutionH']
+    config.read(r"assets\config\settings.ini")
+    resw = config['res']['resolutionw']
+    resh = config['res']['resolutionh']
     if resw == '0' and resh == '0':
         return None
     else:
@@ -280,9 +280,9 @@ def set_saved_config(widget) -> None:
 def write_saved_config(width, height) -> None:
     """Overwrite resoltion values in the settings.ini"""
     config = configparser.ConfigParser()
-    config.read(r"./assets/config/settings.ini")
-    config.set('SAVED', 'ResolutionW', width)
-    config.set('SAVED', 'ResolutionH', height)
-    with open(r"./assets/config/settings.ini", 'w') as configfile:
+    config.read(r"assets\config\settings.ini")
+    config.set('res', 'resolutionw', width)
+    config.set('res', 'resolutionh', height)
+    with open(r"assets\config\settings.ini", 'w') as configfile:
         config.write(configfile)
 
