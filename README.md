@@ -17,7 +17,7 @@ pip install -r requirements.txt
 ### Step 1
 - Run the **gui.py** file in the **source** directory and an application should be appear.
 ### Step 2
-- Now in the app, click on the button `Start & Patch VALORANT`, if it worked, a message should appear saying : *Done!*, else : *VALORANT or Riot Client may be not installed.*<br><sup>Moreover, *Done!* can appear but VALORANT didn't start, don't worry, it's been patched anyway and all you have to do is to click on the `Start` button in Riot Client.</sup>
+- Now in the app, click on the button `Patch & Start VALORANT`, if it worked, a message should appear saying : *Done!*, else : *VALORANT or Riot Client may be not installed.*<br><sup>Moreover, *Done!* can appear but VALORANT didn't start, don't worry, it's been patched anyway and all you have to do is to click on the `Start` button in Riot Client.</sup>
 ### Step 3
 - Once the game has started, you can select your desired resolution in the `Dropdown` list.
 ### Step 4
