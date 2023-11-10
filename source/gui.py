@@ -24,7 +24,7 @@ def main(page: ft.Page):
     )
 
     page.fonts = {
-        "VALORANT": r".\ValorantFont.ttf",
+        "VALORANT": r"assets\fonts\ValorantFont.ttf",
     }
 
     page.window_width = 400
