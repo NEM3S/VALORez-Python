@@ -3,15 +3,19 @@ from flet_core.control_event import ControlEvent
 import main as mn
 from time import sleep
 import pythoncom
+import darkdetect
 
 
 def main(page: ft.Page):
     page.title = "VALORez"
     page.padding = 0
     page.window_opacity = 0.98
-    version = "1.0"
+    page.theme = theme.Theme(color_scheme_seed="red500")
+    version = "1.1"
 
-    page.theme_mode = 'system'
+    page.theme_mode = ft.ThemeMode.SYSTEM
+    if darkdetect.isDark():
+        page.bgcolor = "#1A1C1E"
 
     page.snack_bar = ft.SnackBar(
         content=ft.Text(mn.output_var),
@@ -62,6 +66,7 @@ def main(page: ft.Page):
         mn.output_var = 'Input cleared.'
         page.snack_bar = ft.SnackBar(content=ft.Text(mn.output_var), duration=1000)
         page.snack_bar.open = True
+        mn.write_saved_config('0', '0')
         page.update()
 
     def confirmres(e: ControlEvent):
@@ -82,6 +87,7 @@ def main(page: ft.Page):
                     height += char
             except:
                 pass
+            mn.write_saved_config(width, height)
             mn.set_resolution(int(width), int(height))
             mn.output_var = "VALORANT in now stretched!"
         except:
@@ -129,24 +135,27 @@ def main(page: ft.Page):
 
     default = ft.IconButton(
         icon=ft.icons.RESET_TV,
-        icon_color='red100',
         on_click=defaultres,
     )
 
     clear = ft.IconButton(
         icon=ft.icons.DELETE,
-        icon_color='red100',
         on_click=cleardropdown,
     )
 
     start = ft.ElevatedButton(
-        text="Start & Patch VALORANT",
+        content=ft.Container(
+            content=ft.Text(
+                "Patch & Start VALORANT",
+                weight=ft.FontWeight.BOLD,
+            ),
+        ),
         height=40,
         width=page.window_width - 75,
         on_click=startvalorant,
         style=ft.ButtonStyle(
-            color='red100',
-            animation_duration=1000,
+            animation_duration=500,
+            overlay_color='transparent',
             bgcolor={ft.MaterialState.DEFAULT: page.bgcolor, ft.MaterialState.PRESSED: 'red700'},
             shape={
                 ft.MaterialState.HOVERED: ft.RoundedRectangleBorder(radius=90),
@@ -156,13 +165,18 @@ def main(page: ft.Page):
     )
 
     close = ft.ElevatedButton(
-        text="Close",
+        content=ft.Container(
+            content=ft.Text(
+                "Close",
+                weight=ft.FontWeight.BOLD,
+            ),
+        ),
         height=40,
         width=page.window_width - 75,
         on_click=closing,
         style=ft.ButtonStyle(
-            color='red300',
-            animation_duration=1000,
+            animation_duration=500,
+            overlay_color='transparent',
             bgcolor={ft.MaterialState.DEFAULT: page.bgcolor, ft.MaterialState.PRESSED: 'red700'},
             shape={
                 ft.MaterialState.HOVERED: ft.RoundedRectangleBorder(radius=90),
@@ -236,6 +250,8 @@ def main(page: ft.Page):
 
     page.add(c, processbar)
 
+    mn.set_saved_config(dd)
+    dd.value = 0
     confirm.disabled = True
     close.disabled = True
     default.disabled = True
