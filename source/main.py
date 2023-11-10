@@ -263,3 +263,26 @@ def parse():
     with open(r"{}\{}\Windows\GameUserSettings.ini".format(
             os.path.expandvars(r"%LOCALAPPDATA%\VALORANT\Saved\Config"), found_file_bydate()), 'w') as configfile:
         config.write(configfile)
+
+
+def set_saved_config(widget) -> None:
+    """Set saved resolution values from settings.ini"""
+    config = configparser.ConfigParser()
+    config.read(r"./assets/config/settings.ini")
+    resw = config['SAVED']['ResolutionW']
+    resh = config['SAVED']['ResolutionH']
+    if resw == 0 and resh == 0:
+        return None
+    else:
+        widget.value = f"{resw} x {resh}"
+
+
+def write_saved_config(width, height) -> None:
+    """Overwrite resoltion values in the settings.ini"""
+    config = configparser.ConfigParser()
+    config.read(r"./assets/config/settings.ini")
+    config.set('SAVED', 'ResolutionW', width)
+    config.set('SAVED', 'ResolutionH', height)
+    with open(r"./assets/config/settings.ini", 'w') as configfile:
+        config.write(configfile)
+
