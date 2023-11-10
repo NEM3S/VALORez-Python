@@ -9,7 +9,7 @@ There is already a method for doing this, but it takes much more time, using the
 You can stretch VALORANT in any resolution (existing or customised).
 ## Setup
 ### Before you start
-* You must have **Python** v3.10+ installed _(But not the Microsoft Store version)_
+* You must have **Python** v3.10+ installed _(But not the Microsoft Store version)_, you can download it [here](https://www.python.org/downloads/).
 * You must install **requirements** by opening a command prompt in the **source** directory and running this command line :<br>
 ```
 pip install -r requirements.txt
