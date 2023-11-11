@@ -107,7 +107,8 @@ def set_resolution(width: int, height: int, refresh_rate: int = None) -> None:
 def set_resolution_default() -> None:
     """Set the resolution to the computer's highest resolution"""
     global output_var
-    if win32api.EnumDisplaySettings(None, win32con.ENUM_CURRENT_SETTINGS).PelsWidth == max(get_all_resolutions())[  # Check if the resolution is already set to default
+    if win32api.EnumDisplaySettings(None, win32con.ENUM_CURRENT_SETTINGS).PelsWidth == max(get_all_resolutions())[
+        # Check if the resolution is already set to default
         0] and win32api.EnumDisplaySettings(None, win32con.ENUM_CURRENT_SETTINGS).PelsHeight == \
             max(get_all_resolutions())[1]:
         output_var = 'Resolution is already set to default.'
@@ -268,11 +269,11 @@ def parse():
 def set_saved_config(widget) -> None:
     """Set saved resolution values from settings.ini"""
     config = configparser.ConfigParser()
-    config.read(r"assets\config\settings.ini")
+    config.read(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")))
     resw = config['res']['resolutionw']
     resh = config['res']['resolutionh']
     if resw == '0' and resh == '0':
-        return None
+        widget.value = 0
     else:
         widget.value = f"{resw} x {resh}"
 
@@ -280,9 +281,21 @@ def set_saved_config(widget) -> None:
 def write_saved_config(width, height) -> None:
     """Overwrite resoltion values in the settings.ini"""
     config = configparser.ConfigParser()
-    config.read(r"assets\config\settings.ini")
+    config.read(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")))
     config.set('res', 'resolutionw', width)
     config.set('res', 'resolutionh', height)
-    with open(r"assets\config\settings.ini", 'w') as configfile:
+    with open(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")), 'w') as configfile:
         config.write(configfile)
 
+
+def create_saved_config() -> None:
+    """Create a config folder in %LOCALAPPDATA%"""
+    path = os.path.expandvars(r'%LOCALAPPDATA%\VALORez')
+    if not os.path.exists(path):
+        os.makedirs(path)
+    if not os.path.exists(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%"))):
+        with open(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")), 'w') as configfile:
+            configfile.writelines(['[res]\n',
+                                   'resolutionw=0\n',
+                                   'resolutionh=0']
+                                  )
