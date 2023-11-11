@@ -24,7 +24,7 @@ def main(page: ft.Page):
     )
 
     page.fonts = {
-        "VALORANT": r"assets\fonts\ValorantFont.ttf",
+        "VALORANT": r"fonts/ValorantFont.ttf",
     }
 
     page.window_width = 400
@@ -90,7 +90,7 @@ def main(page: ft.Page):
                 pass
             mn.write_saved_config(width, height)
             mn.set_resolution(int(width), int(height))
-            mn.output_var = "VALORANT in now stretched!"
+            mn.output_var = "VALORANT is now stretched!"
         except:
             mn.output_var = "VALORANT isn't started!"
         if dd.value == 0 or dd.value is None:
@@ -157,7 +157,7 @@ def main(page: ft.Page):
         style=ft.ButtonStyle(
             animation_duration=500,
             overlay_color='transparent',
-            bgcolor={ft.MaterialState.DEFAULT: page.bgcolor, ft.MaterialState.PRESSED: 'red700'},
+            bgcolor={ft.MaterialState.DEFAULT: page.bgcolor, ft.MaterialState.PRESSED: 'red300'},
             shape={
                 ft.MaterialState.HOVERED: ft.RoundedRectangleBorder(radius=90),
                 ft.MaterialState.DEFAULT: ft.RoundedRectangleBorder(radius=5),
@@ -178,7 +178,7 @@ def main(page: ft.Page):
         style=ft.ButtonStyle(
             animation_duration=500,
             overlay_color='transparent',
-            bgcolor={ft.MaterialState.DEFAULT: page.bgcolor, ft.MaterialState.PRESSED: 'red700'},
+            bgcolor={ft.MaterialState.DEFAULT: page.bgcolor, ft.MaterialState.PRESSED: 'red300'},
             shape={
                 ft.MaterialState.HOVERED: ft.RoundedRectangleBorder(radius=90),
                 ft.MaterialState.DEFAULT: ft.RoundedRectangleBorder(radius=5),
@@ -251,6 +251,7 @@ def main(page: ft.Page):
 
     page.add(c, processbar)
 
+    mn.create_saved_config()
     confirm.disabled = True
     close.disabled = True
     default.disabled = True
