@@ -12,7 +12,6 @@ def main(page: ft.Page):
     page.padding = 0
     page.window_opacity = 0.98
     page.theme = theme.Theme(color_scheme_seed="red500")
-    version = "1.1"
 
     page.theme_mode = ft.ThemeMode.SYSTEM
     if darkdetect.isDark():
@@ -242,7 +241,7 @@ def main(page: ft.Page):
                 con,
                 r_resolution,
                 conclose,
-                ft.Text(f"           version: {version} - NEM3S", size=10, opacity=0.5)
+                ft.Text(f"           NEM3S", size=10, opacity=0.5)
             ]
         ),
         height=447,
