@@ -275,10 +275,16 @@ def set_saved_config_res(widget) -> None:
 
 
 def set_saved_config_path() -> str:
-    """Set saved resolution values from settings.ini"""
+    """Set saved path value from settings.ini"""
     config = configparser.ConfigParser()
     config.read(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")))
-    return str(config['path']['vp'])
+    try:
+        return str(config['path']['vp'])
+    except:
+        with open(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")), 'a+') as configfile:
+            configfile.writelines(['[path]\n',
+                                   'vp=""']
+                                  )
 
 
 def write_saved_config_res(width, height) -> None:
