@@ -5,6 +5,23 @@ import main as mn
 from time import sleep
 import pythoncom
 import darkdetect
+import ctypes
+import sys
+
+'''
+# Use this part of code if you want to request UAC elevation
+def is_admin():
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        return False
+
+
+if not is_admin():
+    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+    sys.exit(0)
+'''
+valorant_path = mn.set_saved_config_path()
 
 
 def main(page: ft.Page):
@@ -47,7 +64,7 @@ def main(page: ft.Page):
         pythoncom.CoInitialize()
         mn.parse()
         animate_opacityp()
-        mn.execute_valorant()
+        mn.execute_valorant(valorant_path)
         animate_opacityp()
         page.snack_bar = ft.SnackBar(content=ft.Text(mn.output_var), duration=1000)
         page.snack_bar.open = True
@@ -66,10 +83,11 @@ def main(page: ft.Page):
         mn.output_var = 'Input cleared.'
         page.snack_bar = ft.SnackBar(content=ft.Text(mn.output_var), duration=1000)
         page.snack_bar.open = True
-        mn.write_saved_config('0', '0')
+        mn.write_saved_config_res('0', '0')
         page.update()
 
     def confirmres(e: ControlEvent):
+        animate_opacityp()
         try:
             if dd.value != 0 and dd.value is not None:
                 mn.execute_stretch()
@@ -87,7 +105,7 @@ def main(page: ft.Page):
                     height += char
             except:
                 pass
-            mn.write_saved_config(width, height)
+            mn.write_saved_config_res(width, height)
             mn.set_resolution(int(width), int(height))
             mn.output_var = "VALORANT is now stretched!"
         except:
@@ -95,6 +113,7 @@ def main(page: ft.Page):
         if dd.value == 0 or dd.value is None:
             mn.output_var = "Please select your resolution."
         dd.value = 0
+        animate_opacityp()
         page.snack_bar = ft.SnackBar(content=ft.Text(mn.output_var), duration=1000)
         page.snack_bar.open = True
         page.update()
@@ -143,6 +162,24 @@ def main(page: ft.Page):
         on_click=cleardropdown,
     )
 
+    def on_dialog_result(e: ft.FilePickerResultEvent):
+        global valorant_path
+        try:
+            valorant_path = e.files[0].path
+            print(valorant_path)
+        except:
+            pass
+
+    file_picker = ft.FilePicker(on_result=on_dialog_result)
+    page.overlay.append(file_picker)
+    page.update()
+
+    folder_button = ft.IconButton(
+        icon=ft.icons.FOLDER,
+        on_click=lambda _: file_picker.pick_files(allowed_extensions=["exe"],
+                                                  dialog_title="Open RiotClientServices.exe", allow_multiple=False),
+    )
+
     start = ft.ElevatedButton(
         content=ft.Container(
             content=ft.Text(
@@ -151,7 +188,7 @@ def main(page: ft.Page):
             ),
         ),
         height=40,
-        width=page.window_width - 75,
+        width=page.window_width - 127,
         on_click=startvalorant,
         style=ft.ButtonStyle(
             animation_duration=500,
@@ -188,6 +225,7 @@ def main(page: ft.Page):
     r_firstline = ft.Row(
         [
             start,
+            folder_button,
         ],
         alignment=ft.MainAxisAlignment.CENTER
     )
@@ -271,7 +309,7 @@ def main(page: ft.Page):
         page.update()
     animate_opacityp()
     animate_opacityc()
-    mn.set_saved_config(dd)
+    mn.set_saved_config_res(dd)
     page.update()
 
 
