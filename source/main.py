@@ -151,7 +151,7 @@ def game_is_opened() -> bool:
         return False
 
 
-def execute_valorant() -> str:
+def execute_valorant(vp) -> str:
     """Start the game"""
     global output_var
     found = []
@@ -159,18 +159,14 @@ def execute_valorant() -> str:
         output_var = "VALORANT is already opened."
         return "The game is already opened."
     else:  # Check installation directory of Riot Client
-        for drive in wmi.WMI().Win32_LogicalDisk():
-            for path, dirs, files in os.walk("{}/Riot Games/".format(drive.Caption)):
-                for name in files:
-                    if "RiotClientServices.exe" in name:
-                        found.append(path + "\\RiotClientServices.exe")
-                        break
-        if len(found) != 0:
-            os.spawnl(os.P_NOWAIT, found[0], found[0], "--launch-product=valorant --launch-patchline=live")
+        print(vp)
+        if vp[-22:] == "RiotClientServices.exe":
+            os.spawnl(os.P_NOWAIT, vp, vp, "--launch-product=valorant --launch-patchline=live")
+            write_saved_config_path(vp)
             output_var = "Done!"
             return "Done!"
         else:
-            output_var = "VALORANT or Riot Client may be not installed."
+            output_var = "Find and select RiotClientServices.exe"
             return "The game or Riot Client may be not installed."
 
 
@@ -266,7 +262,7 @@ def parse():
         config.write(configfile)
 
 
-def set_saved_config(widget) -> None:
+def set_saved_config_res(widget) -> None:
     """Set saved resolution values from settings.ini"""
     config = configparser.ConfigParser()
     config.read(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")))
@@ -278,12 +274,28 @@ def set_saved_config(widget) -> None:
         widget.value = f"{resw} x {resh}"
 
 
-def write_saved_config(width, height) -> None:
+def set_saved_config_path() -> str:
+    """Set saved resolution values from settings.ini"""
+    config = configparser.ConfigParser()
+    config.read(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")))
+    return str(config['path']['vp'])
+
+
+def write_saved_config_res(width, height) -> None:
     """Overwrite resoltion values in the settings.ini"""
     config = configparser.ConfigParser()
     config.read(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")))
     config.set('res', 'resolutionw', width)
     config.set('res', 'resolutionh', height)
+    with open(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")), 'w') as configfile:
+        config.write(configfile)
+
+
+def write_saved_config_path(path) -> None:
+    """Overwrite path value in the settings.ini"""
+    config = configparser.ConfigParser()
+    config.read(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")))
+    config.set('path', 'vp', path)
     with open(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")), 'w') as configfile:
         config.write(configfile)
 
@@ -297,5 +309,7 @@ def create_saved_config() -> None:
         with open(r'{}\VALORez\settings.ini'.format(os.path.expandvars(r"%LOCALAPPDATA%")), 'w') as configfile:
             configfile.writelines(['[res]\n',
                                    'resolutionw=0\n',
-                                   'resolutionh=0']
+                                   'resolutionh=0\n',
+                                   '[path]\n',
+                                   'vp=""']
                                   )
