@@ -21,6 +21,7 @@ if not is_admin():
     ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
     sys.exit(0)
 '''
+mn.create_saved_config()
 valorant_path = mn.set_saved_config_path()
 
 
@@ -287,8 +288,7 @@ def main(page: ft.Page):
     )
 
     page.add(c, processbar)
-
-    mn.create_saved_config()
+    
     confirm.disabled = True
     close.disabled = True
     default.disabled = True
